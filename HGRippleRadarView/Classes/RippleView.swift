@@ -133,6 +133,10 @@ public class RippleView: UIView {
             redrawCircles()
         }
     }
+    
+    @IBInspectable public var minAnimationOpacity: CGFloat = 0.0
+    @IBInspectable public var maxAnimationOpacity: CGFloat = 0.3
+    
     // MARK: init methods
     
     /// Initializes and returns a newly allocated view object with the specified frame rectangle.
@@ -242,7 +246,7 @@ public class RippleView: UIView {
     @objc private func animateCentralDisk() {
         let maxScale = maxCircleRadius / diskRadius
         let scaleAnimation = Animation.transform(to: maxScale)
-        let alphaAnimation = Animation.opacity(from: 0.3, to: 0.0)
+        let alphaAnimation = Animation.opacity(from: maxAnimationOpacity, to: minAnimationOpacity)
         let groupAnimation = Animation.group(animations: scaleAnimation, alphaAnimation, duration: centerAnimationDuration)
         centerAnimatedLayer.add(groupAnimation, forKey: nil)
         self.layer.addSublayer(centerAnimatedLayer)
